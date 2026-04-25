@@ -1,4 +1,28 @@
+import { useEffect, useRef } from 'react';
+
 export default function Home() {
+  const portfolioRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up');
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    const cards = portfolioRef.current?.querySelectorAll('.work-card');
+    cards?.forEach((card) => observer.observe(card));
+
+    return () => {
+      cards?.forEach((card) => observer.unobserve(card));
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* NAV */}
@@ -62,7 +86,7 @@ export default function Home() {
       {/* PORTFOLIO */}
       <section id="portfolio" className="px-5 md:px-12 py-20 md:py-32">
         <h2 className="font-syne font-800 text-3xl md:text-4xl mb-12 md:mb-16 max-w-6xl mx-auto">Cases de Sucesso</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+        <div ref={portfolioRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
           {/* 3D CASE */}
           <div className="bg-neutral-900 border border-white/8 rounded-2xl overflow-hidden hover:border-orange-600 hover:shadow-2xl transition-all cursor-pointer group">
             <div className="h-64 md:h-72 bg-black flex items-center justify-center overflow-hidden perspective">
