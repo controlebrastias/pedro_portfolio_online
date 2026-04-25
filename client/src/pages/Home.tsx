@@ -33,7 +33,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center max-w-6xl mx-auto">
           <div className="rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-96">
             <img 
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/gwuRCadDPzhDhjiI.png" 
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/BuhFBpQfsGCcvMGG.png" 
               alt="Pedro - Product Manager"
               className="w-full h-full object-cover"
             />
