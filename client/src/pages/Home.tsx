@@ -68,8 +68,8 @@ export default function Home() {
         <ul className="hidden md:flex gap-6 list-none">
           <li><a href="#about" className="text-sm text-gray-500 hover:text-white transition">HISTÓRIA</a></li>
           <li><a href="#portfolio" className="text-sm text-gray-500 hover:text-white transition">CASES</a></li>
-          <li><a href="#pricing" className="text-sm text-gray-500 hover:text-white transition">PLANOS</a></li>
-          <li><a href="#" className="text-sm text-orange-600 hover:text-orange-500 transition">CONTATO</a></li>
+          <li><a href="#services" className="text-sm text-gray-500 hover:text-white transition">SERVIÇOS</a></li>
+          <li><a href="https://wa.me/5547984958832" target="_blank" className="text-sm text-orange-600 hover:text-orange-500 transition">WHATSAPP</a></li>
         </ul>
       </nav>
 
@@ -120,80 +120,101 @@ export default function Home() {
 
       {/* PORTFOLIO */}
       <section id="portfolio" className="px-5 md:px-12 py-20 md:py-32">
-        <h2 className="font-syne font-800 text-3xl md:text-4xl mb-12 md:mb-16 max-w-6xl mx-auto">Portfólio de Projetos</h2>
-        <div ref={portfolioRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-          {/* 3D CASE */}
-          <div className="bg-neutral-900 border border-white/8 rounded-2xl overflow-hidden hover:border-orange-600 hover:shadow-2xl transition-all cursor-pointer group">
-            <div className="h-64 md:h-72 bg-black flex items-center justify-center overflow-hidden perspective">
-              <div className="w-5/6 h-4/5 bg-neutral-800 rounded-lg relative overflow-hidden transform group-hover:scale-105 transition-transform duration-500" style={{transform: 'rotateX(10deg) rotateY(-10deg) rotateZ(2deg)', perspective: '1000px'}}>
-                <div className="h-5 bg-neutral-700 flex items-center gap-1 px-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-500"></div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-gray-600"></div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-gray-600"></div>
-                </div>
-                <div className="h-full overflow-hidden">
-                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/haGGXwNktIgriWLb.jpg" alt="Bros Burger" className="w-full h-full object-cover animate-pulse" />
-                </div>
-              </div>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="text-xs font-600 uppercase tracking-widest text-orange-600 mb-4 flex items-center justify-center gap-2">
+              <span className="w-6 h-px bg-orange-600"></span>
+              Portfólio
+              <span className="w-6 h-px bg-orange-600"></span>
             </div>
-            <div className="p-6 flex justify-between items-start">
-              <div>
-                <h3 className="font-syne font-700 text-xl mb-1">Bros Burger Site</h3>
-                <p className="text-xs text-gray-500 uppercase tracking-wide">Web Design 3D · UX/UI</p>
-              </div>
-              <span className="text-2xl text-gray-500 group-hover:text-orange-600 transition">→</span>
-            </div>
+            <h2 className="font-syne font-800 text-3xl md:text-4xl">Projetos em Destaque</h2>
           </div>
-
-          {/* OUTROS PROJETOS */}
-          {[
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/aMFAzZyjuKtfBJVI.png", title: "Bros Burger", cat: "Branding & Social" },
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/QqbgjZHzyaehCCDZ.png", title: "OralCare", cat: "Identidade Visual" },
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/VaQlLUyiFJdgtqVt.png", title: "UrbanStyle", cat: "Social Media" },
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/oXvuskLWxiKNrCwz.png", title: "FlashFiber", cat: "Design Estratégico" },
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/CVHTbBZCgmetbWOO.png", title: "MercadoBom", cat: "Branding" },
-          ].map((item, i) => (
-            <div key={i} className="bg-neutral-900 border border-white/8 rounded-2xl overflow-hidden hover:border-orange-600 hover:shadow-2xl transition-all cursor-pointer group">
-              <div className="h-64 md:h-72 bg-black overflow-hidden">
-                <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="p-6 flex justify-between items-start">
-                <div>
-                  <h3 className="font-syne font-700 text-xl mb-1">{item.title}</h3>
-                  <p className="text-xs text-gray-500 uppercase tracking-wide">{item.cat}</p>
+          
+          <div ref={portfolioRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {/* 3D CASE */}
+            <div className="work-card group relative rounded-2xl overflow-hidden cursor-pointer h-80 md:h-96">
+              <div className="absolute inset-0 bg-black flex items-center justify-center overflow-hidden perspective">
+                <div className="w-5/6 h-4/5 bg-neutral-800 rounded-lg relative overflow-hidden transform group-hover:scale-110 transition-all duration-700" style={{transform: 'rotateX(10deg) rotateY(-10deg) rotateZ(2deg)', perspective: '1000px'}}>
+                  <div className="h-5 bg-neutral-700 flex items-center gap-1 px-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-gray-600"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-gray-600"></div>
+                  </div>
+                  <div className="h-full overflow-hidden">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/haGGXwNktIgriWLb.jpg" alt="Bros Burger" className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700" />
+                  </div>
                 </div>
-                <span className="text-2xl text-gray-500 group-hover:text-orange-600 transition">→</span>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
+                <h3 className="font-syne font-700 text-2xl mb-2">Bros Burger Site</h3>
+                <p className="text-gray-300 text-sm mb-4">Web Design 3D · UX/UI</p>
+                <div className="flex items-center gap-2 text-orange-600 font-600">
+                  <span>Ver Projeto</span>
+                  <span className="group-hover:translate-x-2 transition-transform">→</span>
+                </div>
               </div>
             </div>
-          ))}
+
+            {/* OUTROS PROJETOS */}
+            {[
+              { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/aMFAzZyjuKtfBJVI.png", title: "Bros Burger", cat: "Branding & Social" },
+              { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/QqbgjZHzyaehCCDZ.png", title: "OralCare", cat: "Identidade Visual" },
+              { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/VaQlLUyiFJdgtqVt.png", title: "UrbanStyle", cat: "Social Media" },
+              { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/oXvuskLWxiKNrCwz.png", title: "FlashFiber", cat: "Design Estratégico" },
+              { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/CVHTbBZCgmetbWOO.png", title: "MercadoBom", cat: "Branding" },
+            ].map((item, i) => (
+              <div key={i} className="work-card group relative rounded-2xl overflow-hidden cursor-pointer h-80 md:h-96">
+                <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
+                  <h3 className="font-syne font-700 text-2xl mb-2">{item.title}</h3>
+                  <p className="text-gray-300 text-sm mb-4">{item.cat}</p>
+                  <div className="flex items-center gap-2 text-orange-600 font-600">
+                    <span>Ver Projeto</span>
+                    <span className="group-hover:translate-x-2 transition-transform">→</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* PRICING */}
-      <section id="pricing" className="bg-neutral-900 px-5 md:px-12 py-20 md:py-32">
-        <h2 className="font-syne font-800 text-3xl md:text-4xl mb-12 md:mb-16 max-w-6xl mx-auto">Investimento</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-          {[
-            { title: "Social Starter", price: "1.5k", features: ["12 artes mensais", "Gestão de Stories", "Identidade Visual Básica", "Suporte via WhatsApp"], featured: false },
-            { title: "Brand Master", price: "3.2k", features: ["24 artes mensais", "Landing Page Inclusa", "Estratégia de Produto", "Foco em Customer Success"], featured: true },
-            { title: "Full Experience", price: "Consultar", features: ["Gestão Completa 360º", "Consultoria de PM", "Mapeamento de Jornada", "Tráfego Pago Incluso"], featured: false },
-          ].map((plan, i) => (
-            <div key={i} className={`p-8 md:p-10 rounded-2xl transition-all ${plan.featured ? 'border border-orange-600 bg-gradient-to-b from-neutral-800 to-black' : 'bg-black border border-white/8 hover:border-orange-600'}`}>
-              <h3 className="font-syne font-700 text-2xl mb-3">{plan.title}</h3>
-              <div className="font-syne font-800 text-4xl md:text-5xl text-orange-600 mb-6">
-                R$ {plan.price}
-                {plan.price !== "Consultar" && <span className="text-base text-gray-400">/mês</span>}
-              </div>
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((f, j) => (
-                  <li key={j} className="text-gray-400 text-base flex items-start gap-3">
-                    <span className="text-orange-600 mt-1">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
+      {/* SERVICES */}
+      <section id="services" className="bg-neutral-900 px-5 md:px-12 py-20 md:py-32">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="text-xs font-600 uppercase tracking-widest text-orange-600 mb-4 flex items-center justify-center gap-2">
+              <span className="w-6 h-px bg-orange-600"></span>
+              Serviços
+              <span className="w-6 h-px bg-orange-600"></span>
             </div>
-          ))}
+            <h2 className="font-syne font-800 text-3xl md:text-4xl mb-4">O que Posso Oferecer</h2>
+            <p className="text-gray-400 text-lg">Soluções completas personalizadas para sua marca crescer</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {[
+              { icon: "🎨", title: "Branding & Identidade Visual", desc: "Logo, paleta de cores, tipografia e guidelines completos" },
+              { icon: "📱", title: "Social Media Management", desc: "Gestão completa de redes sociais com conteúdo estratégico" },
+              { icon: "🌐", title: "Landing Pages", desc: "Sites profissionais otimizados para conversão" },
+              { icon: "📊", title: "Consultoria de Produto", desc: "Estratégia de produto e visão de negócio" },
+              { icon: "👥", title: "Customer Success", desc: "Mapeamento de jornada e otimização de experiência" },
+              { icon: "🎬", title: "Design Estratégico", desc: "Campanhas visuais integradas e impactantes" },
+            ].map((service, i) => (
+              <div key={i} className="bg-black border border-white/8 rounded-2xl p-8 hover:border-orange-600 transition-all hover:shadow-2xl">
+                <div className="text-4xl mb-4">{service.icon}</div>
+                <h3 className="font-syne font-700 text-xl mb-3">{service.title}</h3>
+                <p className="text-gray-400 text-base">{service.desc}</p>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center mt-16">
+            <p className="text-gray-400 text-lg mb-6">Todos os serviços com <span className="text-orange-600 font-600">orçamento personalizado</span></p>
+            <a href="https://wa.me/5547984958832" target="_blank" className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-600 px-8 py-4 rounded-lg transition-all">
+              Solicitar Orçamento via WhatsApp
+            </a>
+          </div>
         </div>
       </section>
 
@@ -203,13 +224,18 @@ export default function Home() {
           <div className="text-center mb-12">
             <div className="text-xs font-600 uppercase tracking-widest text-orange-600 mb-4 flex items-center justify-center gap-2">
               <span className="w-6 h-px bg-orange-600"></span>
-              Entre em Contato
+              Contato Direto
               <span className="w-6 h-px bg-orange-600"></span>
             </div>
-            <h2 className="font-syne font-800 text-3xl md:text-4xl mb-4">Vamos Conversar?</h2>
-            <p className="text-gray-400 text-lg">Envie uma mensagem e entraremos em contato em breve.</p>
+            <h2 className="font-syne font-800 text-3xl md:text-4xl mb-4">Fale Comigo no WhatsApp</h2>
+            <p className="text-gray-400 text-lg mb-8">Respondo rápido e gosto de conversar sobre seus desafios</p>
+            <a href="https://wa.me/5547984958832" target="_blank" className="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white font-600 px-8 py-4 rounded-lg transition-all mb-12">
+              <span>💬</span>
+              (47) 98495-8832
+            </a>
           </div>
           
+          <p className="text-center text-gray-500 text-sm mb-8">Ou deixe sua mensagem abaixo que entraremos em contato:</p>
           <form onSubmit={handleContactSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-600 mb-2 text-white">Nome</label>
