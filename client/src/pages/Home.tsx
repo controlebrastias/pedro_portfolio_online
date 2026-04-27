@@ -5,9 +5,10 @@ import { toast } from 'sonner';
 
 export default function Home() {
   const { user, loading, error, isAuthenticated, logout } = useAuth();
+  const contactMutation = trpc.contacts.create.useMutation();
 
   const portfolioRef = useRef<HTMLDivElement>(null);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', phone: '', service: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedProject, setSelectedProject] = useState<{ title: string; cat: string; img: string } | null>(null);
 
@@ -15,7 +16,7 @@ export default function Home() {
     e.preventDefault();
     
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      toast.error('Por favor, preencha todos os campos');
+      toast.error('Por favor, preencha todos os campos obrigatórios');
       return;
     }
 
@@ -27,13 +28,18 @@ export default function Home() {
 
     setIsSubmitting(true);
     try {
-      // TODO: Integrar com backend para salvar contato
-      // await contactMutation.mutateAsync(formData);
+      await contactMutation.mutateAsync({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        service: formData.service || undefined,
+        message: formData.message,
+      });
       toast.success('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', message: '', phone: '', service: '' });
     } catch (error) {
+      console.error('Erro ao enviar mensagem:', error);
       toast.error('Erro ao enviar mensagem. Tente novamente.');
-      console.error(error);
     } finally {
       setIsSubmitting(false);
     }
@@ -248,7 +254,7 @@ export default function Home() {
           <p className="text-center text-gray-500 text-sm mb-8">Ou deixe sua mensagem abaixo que entraremos em contato:</p>
           <form onSubmit={handleContactSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-600 mb-2 text-white">Nome</label>
+              <label className="block text-sm font-600 mb-2 text-white">Nome *</label>
               <input
                 type="text"
                 value={formData.name}
@@ -256,11 +262,12 @@ export default function Home() {
                 placeholder="Seu nome completo"
                 className="w-full px-4 py-3 bg-neutral-900 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-600 transition"
                 disabled={isSubmitting}
+                required
               />
             </div>
             
             <div>
-              <label className="block text-sm font-600 mb-2 text-white">Email</label>
+              <label className="block text-sm font-600 mb-2 text-white">Email *</label>
               <input
                 type="email"
                 value={formData.email}
@@ -268,11 +275,42 @@ export default function Home() {
                 placeholder="seu.email@exemplo.com"
                 className="w-full px-4 py-3 bg-neutral-900 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-600 transition"
                 disabled={isSubmitting}
+                required
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-600 mb-2 text-white">Telefone (opcional)</label>
+              <input
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                placeholder="(47) 98495-8832"
+                className="w-full px-4 py-3 bg-neutral-900 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-600 transition"
+                disabled={isSubmitting}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-600 mb-2 text-white">Serviço de Interesse (opcional)</label>
+              <select
+                value={formData.service}
+                onChange={(e) => setFormData({...formData, service: e.target.value})}
+                className="w-full px-4 py-3 bg-neutral-900 border border-white/8 rounded-lg text-white focus:outline-none focus:border-orange-600 transition"
+                disabled={isSubmitting}
+              >
+                <option value="">Selecione um serviço...</option>
+                <option value="Branding">Branding & Identidade Visual</option>
+                <option value="Social Media">Social Media Management</option>
+                <option value="Landing Page">Landing Pages</option>
+                <option value="Consultoria">Consultoria de Produto</option>
+                <option value="Customer Success">Customer Success</option>
+                <option value="Design Estratégico">Design Estratégico</option>
+              </select>
             </div>
             
             <div>
-              <label className="block text-sm font-600 mb-2 text-white">Mensagem</label>
+              <label className="block text-sm font-600 mb-2 text-white">Mensagem *</label>
               <textarea
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -280,15 +318,16 @@ export default function Home() {
                 rows={5}
                 className="w-full px-4 py-3 bg-neutral-900 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-600 transition resize-none"
                 disabled={isSubmitting}
+                required
               />
             </div>
             
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || contactMutation.isPending}
               className="w-full px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-600 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
+              {isSubmitting || contactMutation.isPending ? 'Enviando...' : 'Enviar Mensagem'}
             </button>
           </form>
         </div>

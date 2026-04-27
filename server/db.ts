@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, contacts, InsertContact } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -90,3 +90,41 @@ export async function getUserByOpenId(openId: string) {
 }
 
 // TODO: add feature queries here as your schema grows.
+
+
+// Helpers para contatos
+export async function createContact(contact: InsertContact) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("[Database] Cannot create contact: database not available");
+  }
+
+  try {
+    const result = await db.insert(contacts).values(contact);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to create contact:", error);
+    throw error;
+  }
+}
+
+export async function getContactById(id: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get contact: database not available");
+    return undefined;
+  }
+
+  const result = await db.select().from(contacts).where(eq(contacts.id, id)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+export async function getAllContacts() {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get contacts: database not available");
+    return [];
+  }
+
+  return await db.select().from(contacts).orderBy(contacts.createdAt);
+}
