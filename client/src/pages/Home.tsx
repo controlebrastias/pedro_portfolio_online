@@ -1,7 +1,42 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useAuth } from '@/_core/hooks/useAuth';
+import { trpc } from '@/lib/trpc';
+import { toast } from 'sonner';
 
 export default function Home() {
+  const { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const portfolioRef = useRef<HTMLDivElement>(null);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      toast.error('Por favor, preencha todos os campos');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error('Email inválido');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      // TODO: Integrar com backend para salvar contato
+      // await contactMutation.mutateAsync(formData);
+      toast.success('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      toast.error('Erro ao enviar mensagem. Tente novamente.');
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,10 +80,10 @@ export default function Home() {
           Product Manager & Estrategista
         </div>
         <h1 className="font-syne font-800 text-4xl md:text-6xl lg:text-7xl leading-tight mb-6 max-w-2xl">
-          Design com <span className="text-orange-600">visão</span> de produto.
+          Design que <span className="text-orange-600">vende</span>.
         </h1>
         <p className="text-lg text-gray-400 max-w-xl leading-relaxed mb-8">
-          Unindo a estratégia de <strong>Product Management</strong> com a sensibilidade do <strong>Customer Success</strong> para criar marcas que não apenas encantam, mas retêm e convertem.
+          Estratégia de produto + design visual + customer success. Tudo que sua marca precisa para crescer.
         </p>
       </section>
 
@@ -68,16 +103,16 @@ export default function Home() {
               Minha Jornada
             </div>
             <h2 className="font-syne font-800 text-3xl md:text-4xl mb-6 leading-tight">
-              Mais que design, uma <span className="text-orange-600">experiência</span> completa.
+              Visão de <span className="text-orange-600">produto</span> em cada projeto.
             </h2>
             <p className="text-gray-400 text-lg leading-relaxed mb-4">
-              Atualmente atuo como <span className="text-white font-500">Product Manager</span>, o que me permite olhar para cada projeto de design não apenas como uma peça estética, mas como um ativo estratégico que resolve problemas reais de negócio.
+              Sou <span className="text-white font-500">Product Manager</span> e designer. Isso significa que não crio apenas artes bonitas — crio soluções estratégicas que resolvem problemas reais do seu negócio.
             </p>
             <p className="text-gray-400 text-lg leading-relaxed mb-4">
-              Minha visão ampla em <span className="text-white font-500">Customer Success</span> garante que cada detalhe da jornada do seu cliente seja mapeado e otimizado. Eu não entrego apenas artes; eu entrego soluções que aproximam sua marca do sucesso do seu cliente final.
+              Cada projeto é pensado com foco em <span className="text-white font-500">Customer Success</span>. Mapeio a jornada do seu cliente, otimizo cada touchpoint e garanto que sua marca não apenas atrai, mas retém e converte.
             </p>
             <p className="text-gray-400 text-lg leading-relaxed">
-              Seja no setor de alimentação, saúde ou tecnologia, meu foco é sempre o mesmo: <span className="text-white font-500">gerar valor tangível</span> através de uma comunicação visual impecável e estratégica.
+              Qualquer nicho, qualquer desafio. Meu objetivo é simples: <span className="text-white font-500">gerar crescimento real</span> através de design estratégico.
             </p>
           </div>
         </div>
@@ -85,7 +120,7 @@ export default function Home() {
 
       {/* PORTFOLIO */}
       <section id="portfolio" className="px-5 md:px-12 py-20 md:py-32">
-        <h2 className="font-syne font-800 text-3xl md:text-4xl mb-12 md:mb-16 max-w-6xl mx-auto">Cases de Sucesso</h2>
+        <h2 className="font-syne font-800 text-3xl md:text-4xl mb-12 md:mb-16 max-w-6xl mx-auto">Portfólio de Projetos</h2>
         <div ref={portfolioRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
           {/* 3D CASE */}
           <div className="bg-neutral-900 border border-white/8 rounded-2xl overflow-hidden hover:border-orange-600 hover:shadow-2xl transition-all cursor-pointer group">
@@ -110,13 +145,13 @@ export default function Home() {
             </div>
           </div>
 
-          {/* OUTROS CASES */}
+          {/* OUTROS PROJETOS */}
           {[
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/aMFAzZyjuKtfBJVI.png", title: "Bros Burger", cat: "Branding · Gastronomia" },
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/QqbgjZHzyaehCCDZ.png", title: "OralCare Clínica", cat: "Social Media · Saúde" },
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/VaQlLUyiFJdgtqVt.png", title: "UrbanStyle", cat: "Moda · Streetwear" },
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/oXvuskLWxiKNrCwz.png", title: "FlashFiber", cat: "Tecnologia · Internet" },
-            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/CVHTbBZCgmetbWOO.png", title: "MercadoBom", cat: "Varejo · Design" },
+            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/aMFAzZyjuKtfBJVI.png", title: "Bros Burger", cat: "Branding & Social" },
+            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/QqbgjZHzyaehCCDZ.png", title: "OralCare", cat: "Identidade Visual" },
+            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/VaQlLUyiFJdgtqVt.png", title: "UrbanStyle", cat: "Social Media" },
+            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/oXvuskLWxiKNrCwz.png", title: "FlashFiber", cat: "Design Estratégico" },
+            { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/CVHTbBZCgmetbWOO.png", title: "MercadoBom", cat: "Branding" },
           ].map((item, i) => (
             <div key={i} className="bg-neutral-900 border border-white/8 rounded-2xl overflow-hidden hover:border-orange-600 hover:shadow-2xl transition-all cursor-pointer group">
               <div className="h-64 md:h-72 bg-black overflow-hidden">
@@ -159,6 +194,67 @@ export default function Home() {
               </ul>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="px-5 md:px-12 py-20 md:py-32 bg-black">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="text-xs font-600 uppercase tracking-widest text-orange-600 mb-4 flex items-center justify-center gap-2">
+              <span className="w-6 h-px bg-orange-600"></span>
+              Entre em Contato
+              <span className="w-6 h-px bg-orange-600"></span>
+            </div>
+            <h2 className="font-syne font-800 text-3xl md:text-4xl mb-4">Vamos Conversar?</h2>
+            <p className="text-gray-400 text-lg">Envie uma mensagem e entraremos em contato em breve.</p>
+          </div>
+          
+          <form onSubmit={handleContactSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-600 mb-2 text-white">Nome</label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                placeholder="Seu nome completo"
+                className="w-full px-4 py-3 bg-neutral-900 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-600 transition"
+                disabled={isSubmitting}
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-600 mb-2 text-white">Email</label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                placeholder="seu.email@exemplo.com"
+                className="w-full px-4 py-3 bg-neutral-900 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-600 transition"
+                disabled={isSubmitting}
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-600 mb-2 text-white">Mensagem</label>
+              <textarea
+                value={formData.message}
+                onChange={(e) => setFormData({...formData, message: e.target.value})}
+                placeholder="Conte-nos sobre seu projeto..."
+                rows={5}
+                className="w-full px-4 py-3 bg-neutral-900 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-orange-600 transition resize-none"
+                disabled={isSubmitting}
+              />
+            </div>
+            
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-600 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
+            </button>
+          </form>
         </div>
       </section>
 
