@@ -64,7 +64,9 @@ export default function Home() {
       {/* NAV */}
       <nav className="fixed top-0 left-0 right-0 z-100 px-5 py-6 md:px-12 flex justify-between items-center backdrop-blur-lg bg-black/80 border-b border-white/8">
         <div className="flex items-center gap-3">
-          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663598443704/fqmkVpigEsdqHEcxYURyr2/foco-logo-compressed.webp" alt="FOCO" className="h-8" />
+          <div className="w-8 h-8 bg-gradient-to-br from-orange-600 to-orange-700 rounded-lg flex items-center justify-center">
+            <span className="font-syne font-900 text-white text-sm">F</span>
+          </div>
           <span className="font-syne font-800 text-lg">FOCO</span>
         </div>
         <ul className="hidden md:flex gap-6 list-none">
@@ -94,7 +96,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center max-w-6xl mx-auto">
           <div className="rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-96">
             <img 
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663598443704/fqmkVpigEsdqHEcxYURyr2/foto_corporativa_foco-ZCRCy2Zb5HD4SyDuGoUTwh.webp" 
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/BuhFBpQfsGCcvMGG.png" 
               alt="Fundador - FOCO"
               className="w-full h-full object-cover"
             />
@@ -316,7 +318,9 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="border-t border-white/8 px-5 md:px-12 py-16 md:py-20 text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663598443704/fqmkVpigEsdqHEcxYURyr2/foco-logo-compressed.webp" alt="FOCO" className="h-6" />
+          <div className="w-6 h-6 bg-gradient-to-br from-orange-600 to-orange-700 rounded flex items-center justify-center">
+            <span className="font-syne font-900 text-white text-xs">F</span>
+          </div>
           <span className="font-syne font-800 text-2xl">FOCO</span>
         </div>
         <ul className="flex justify-center gap-8 md:gap-12 mb-8 list-none text-sm">
