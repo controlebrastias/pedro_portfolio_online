@@ -305,16 +305,19 @@ export default function Home() {
               >
                 ✕
               </button>
-              {/* Vídeo animado da landing page */}
-              <div className="relative w-full bg-black overflow-hidden">
-                <img src={selectedProject.img} alt="Landing Page Demo" className="w-full h-auto animate-pulse" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 h-16 border-4 border-orange-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-white font-600">Carregando preview...</p>
+              
+              {/* Mostrar animação apenas para Bros Burger Site */}
+              {selectedProject.title === 'Bros Burger' ? (
+                <div className="relative w-full bg-black overflow-hidden h-96">
+                  <div className="animate-scroll" style={{ animation: 'scroll 10s linear infinite' }}>
+                    <img src={selectedProject.img} alt="Landing Page Demo" className="w-full h-auto" />
                   </div>
                 </div>
-              </div>
+              ) : (
+                /* Para outros cases, mostrar apenas a imagem */
+                <img src={selectedProject.img} alt={selectedProject.title} className="w-full h-auto" />
+              )}
+              
               <div className="p-8 md:p-12">
                 <h2 className="font-syne font-800 text-3xl md:text-4xl mb-4">{selectedProject.title}</h2>
                 <p className="text-orange-600 font-600 mb-6">{selectedProject.cat}</p>
@@ -329,6 +332,16 @@ export default function Home() {
           </div>
         </div>
       )}
+      
+      <style>{`
+        @keyframes scroll {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-100%); }
+        }
+        .animate-scroll {
+          animation: scroll 10s linear infinite;
+        }
+      `}</style>
 
       {/* FOOTER */}
       <footer className="border-t border-white/8 px-5 md:px-12 py-16 md:py-20 text-center">
