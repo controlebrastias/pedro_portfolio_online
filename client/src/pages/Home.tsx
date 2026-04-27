@@ -78,17 +78,23 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="min-h-screen flex flex-col justify-center px-5 md:px-12 pt-32 md:pt-0 pb-16 md:pb-0 relative">
-        <div className="text-xs font-600 uppercase tracking-widest text-orange-600 mb-5 flex items-center gap-2">
-          <span className="w-6 h-px bg-orange-600"></span>
-          Product Manager & Estrategista
+      <section className="min-h-screen flex flex-col justify-center px-5 md:px-12 pt-32 md:pt-0 pb-16 md:pb-0 relative overflow-hidden">
+        {/* Decoração visual no fundo */}
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-gradient-to-l from-orange-600/10 to-transparent rounded-full blur-3xl -translate-y-1/2"></div>
+        <div className="absolute top-1/3 right-20 w-72 h-72 bg-gradient-to-l from-orange-600/5 to-transparent rounded-full blur-2xl animate-pulse"></div>
+        
+        <div className="relative z-10">
+          <div className="text-xs font-600 uppercase tracking-widest text-orange-600 mb-5 flex items-center gap-2">
+            <span className="w-6 h-px bg-orange-600"></span>
+            Product Manager & Estrategista
+          </div>
+          <h1 className="font-syne font-800 text-4xl md:text-6xl lg:text-7xl leading-tight mb-6 max-w-2xl">
+            Design que <span className="text-orange-600">vende</span>.
+          </h1>
+          <p className="text-lg text-gray-400 max-w-xl leading-relaxed mb-8">
+            Estratégia de produto + design visual + customer success. Tudo que sua marca precisa para crescer.
+          </p>
         </div>
-        <h1 className="font-syne font-800 text-4xl md:text-6xl lg:text-7xl leading-tight mb-6 max-w-2xl">
-          Design que <span className="text-orange-600">vende</span>.
-        </h1>
-        <p className="text-lg text-gray-400 max-w-xl leading-relaxed mb-8">
-          Estratégia de produto + design visual + customer success. Tudo que sua marca precisa para crescer.
-        </p>
       </section>
 
       {/* ABOUT */}
@@ -299,7 +305,16 @@ export default function Home() {
               >
                 ✕
               </button>
-              <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663598443704/fqmkVpigEsdqHEcxYURyr2/landing_page_demo-mqmJiDn5V2GYNg8DefTxZK.webp" alt="Landing Page Demo" className="w-full h-auto" />
+              {/* Vídeo animado da landing page */}
+              <div className="relative w-full bg-black overflow-hidden">
+                <img src={selectedProject.img} alt="Landing Page Demo" className="w-full h-auto animate-pulse" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-orange-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-white font-600">Carregando preview...</p>
+                  </div>
+                </div>
+              </div>
               <div className="p-8 md:p-12">
                 <h2 className="font-syne font-800 text-3xl md:text-4xl mb-4">{selectedProject.title}</h2>
                 <p className="text-orange-600 font-600 mb-6">{selectedProject.cat}</p>
