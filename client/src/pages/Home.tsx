@@ -9,6 +9,7 @@ export default function Home() {
   const portfolioRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<{ title: string; cat: string; img: string } | null>(null);
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,8 +63,9 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white">
       {/* NAV */}
       <nav className="fixed top-0 left-0 right-0 z-100 px-5 py-6 md:px-12 flex justify-between items-center backdrop-blur-lg bg-black/80 border-b border-white/8">
-        <div className="font-syne font-800 text-lg">
-          PEDRO<span className="text-orange-600">.</span>DIGITAL
+        <div className="flex items-center gap-3">
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663598443704/fqmkVpigEsdqHEcxYURyr2/foco-logo-compressed.webp" alt="FOCO" className="h-8" />
+          <span className="font-syne font-800 text-lg">FOCO</span>
         </div>
         <ul className="hidden md:flex gap-6 list-none">
           <li><a href="#about" className="text-sm text-gray-500 hover:text-white transition">HISTÓRIA</a></li>
@@ -92,8 +94,8 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center max-w-6xl mx-auto">
           <div className="rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-96">
             <img 
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/BuhFBpQfsGCcvMGG.png" 
-              alt="Pedro - Product Manager"
+              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663598443704/fqmkVpigEsdqHEcxYURyr2/foto_corporativa_foco-ZCRCy2Zb5HD4SyDuGoUTwh.webp" 
+              alt="Fundador - FOCO"
               className="w-full h-full object-cover"
             />
           </div>
@@ -163,7 +165,7 @@ export default function Home() {
               { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/oXvuskLWxiKNrCwz.png", title: "FlashFiber", cat: "Design Estratégico" },
               { img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/CVHTbBZCgmetbWOO.png", title: "MercadoBom", cat: "Branding" },
             ].map((item, i) => (
-              <div key={i} className="work-card group relative rounded-2xl overflow-hidden cursor-pointer h-80 md:h-96">
+              <div key={i} className="work-card group relative rounded-2xl overflow-hidden cursor-pointer h-80 md:h-96" onClick={() => setSelectedProject(item)}>
                 <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
                   <h3 className="font-syne font-700 text-2xl mb-2">{item.title}</h3>
@@ -284,17 +286,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* MODAL DE PROJETOS */}
+      {selectedProject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={() => setSelectedProject(null)}>
+          <div className="bg-neutral-900 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="relative">
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-6 right-6 z-10 bg-black/50 hover:bg-black/80 text-white w-10 h-10 rounded-full flex items-center justify-center transition"
+              >
+                ✕
+              </button>
+              <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663598443704/fqmkVpigEsdqHEcxYURyr2/landing_page_demo-mqmJiDn5V2GYNg8DefTxZK.webp" alt="Landing Page Demo" className="w-full h-auto" />
+              <div className="p-8 md:p-12">
+                <h2 className="font-syne font-800 text-3xl md:text-4xl mb-4">{selectedProject.title}</h2>
+                <p className="text-orange-600 font-600 mb-6">{selectedProject.cat}</p>
+                <p className="text-gray-300 leading-relaxed mb-8">
+                  Esta é uma landing page profissional criada para {selectedProject.title}. O design combina estratégia de produto, visual impactante e otimização para conversão.
+                </p>
+                <a href="https://wa.me/5547984958832" className="inline-block px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white font-600 rounded-lg transition">
+                  Solicitar Orçamento
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* FOOTER */}
       <footer className="border-t border-white/8 px-5 md:px-12 py-16 md:py-20 text-center">
-        <div className="font-syne font-800 text-2xl mb-4 max-w-6xl mx-auto">
-          PEDRO<span className="text-orange-600">.</span>DIGITAL
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663598443704/fqmkVpigEsdqHEcxYURyr2/foco-logo-compressed.webp" alt="FOCO" className="h-6" />
+          <span className="font-syne font-800 text-2xl">FOCO</span>
         </div>
         <ul className="flex justify-center gap-8 md:gap-12 mb-8 list-none text-sm">
           <li><a href="#about" className="text-gray-500 hover:text-orange-600 transition">História</a></li>
           <li><a href="#portfolio" className="text-gray-500 hover:text-orange-600 transition">Cases</a></li>
-          <li><a href="#pricing" className="text-gray-500 hover:text-orange-600 transition">Investimento</a></li>
+          <li><a href="#services" className="text-gray-500 hover:text-orange-600 transition">Serviços</a></li>
         </ul>
-        <p className="text-gray-600 text-xs">&copy; 2024 Pedro. Todos os direitos reservados.</p>
+        <p className="text-gray-600 text-xs">&copy; 2026 FOCO. Todos os direitos reservados.</p>
       </footer>
     </div>
   );
