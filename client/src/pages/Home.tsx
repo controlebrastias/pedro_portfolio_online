@@ -306,12 +306,13 @@ export default function Home() {
                 ✕
               </button>
               
-              {/* Mostrar animação apenas para Bros Burger Site */}
+              {/* Mostrar vídeo animado apenas para Bros Burger Site */}
               {selectedProject.title === 'Bros Burger' ? (
-                <div className="relative w-full bg-black overflow-hidden h-96">
-                  <div className="animate-scroll" style={{ animation: 'scroll 10s linear infinite' }}>
-                    <img src={selectedProject.img} alt="Landing Page Demo" className="w-full h-auto" />
-                  </div>
+                <div className="relative w-full bg-black overflow-hidden">
+                  <video autoPlay loop muted className="w-full h-auto" style={{ maxHeight: '500px', objectFit: 'cover' }}>
+                    <source src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598443704/hqFgvCaFYDoqmcIb.mp4" type="video/mp4" />
+                    Seu navegador não suporta vídeo HTML5
+                  </video>
                 </div>
               ) : (
                 /* Para outros cases, mostrar apenas a imagem */
